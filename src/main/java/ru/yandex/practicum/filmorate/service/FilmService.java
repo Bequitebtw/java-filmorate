@@ -15,7 +15,7 @@ public class FilmService {
     private final InMemoryFilmStorage inMemoryFilmStorage;
     private final InMemoryUserStorage inMemoryUserStorage;
 
-    public Film likeFilm(long filmId, long userId) {
+    public Film likeFilm(int filmId, int userId) {
         if (inMemoryUserStorage.getUserById(userId).getFilms().contains(filmId)) {
             throw new ValidationException("Этот фильм вы уже лайкали");
         }
@@ -24,7 +24,7 @@ public class FilmService {
         return inMemoryFilmStorage.getFilmById(filmId);
     }
 
-    public Film deleteLike(long filmId, long userId) {
+    public Film deleteLike(int filmId, int userId) {
         inMemoryUserStorage.getUserById(userId).getFilms().remove(filmId);
         inMemoryFilmStorage.getFilmById(filmId).deleteLike();
         return inMemoryFilmStorage.getFilmById(filmId);
@@ -41,7 +41,7 @@ public class FilmService {
 //        }
 //        return popularFilms;
 //    }
-    public List<Film> getPopularFilms(long count) {
+    public List<Film> getPopularFilms(int count) {
         return inMemoryFilmStorage.getFilms().stream()
                 .sorted(Comparator.comparingLong(Film::getLikes).reversed()) // Сортировка по лайкам
                 .limit(count) // Берем только N фильмов

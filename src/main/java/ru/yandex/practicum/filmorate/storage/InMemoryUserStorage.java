@@ -11,7 +11,7 @@ import java.util.*;
 @Slf4j
 @Component
 public class InMemoryUserStorage implements UserStorage {
-    HashMap<Long, User> users = new HashMap<>();
+    HashMap<Integer, User> users = new HashMap<>();
 
     public Collection<User> getUsers() {
         return users.values();
@@ -44,15 +44,15 @@ public class InMemoryUserStorage implements UserStorage {
         return oldUser;
     }
 
-    public User getUserById(long id) {
+    public User getUserById(int id) {
         if (users.containsKey(id)) {
             return users.get(id);
         }
         throw new NotFoundUserException(id);
     }
 
-    private long getNextId() {
-        return users.keySet().stream().mapToLong(Long::longValue).max().orElse(0) + 1;
+    private Integer getNextId() {
+        return users.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
     }
 
     private void nameValidation(User user) {

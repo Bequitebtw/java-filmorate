@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 public class User {
-    private Long id;
+    private Integer id;
     private String name;
     @NotBlank(message = "Логин не может быть пустым или содержать пробелы")
     @NonNull
@@ -22,6 +22,6 @@ public class User {
     @Past
     @NonNull
     private LocalDate birthday;
-    private final Set<Long> friends = new HashSet<>();
-    private final Set<Long> films = new HashSet<>();
+    private final Set<Integer> friends = new HashSet<>();
+    private final Set<Integer> films = new HashSet<>();
 }

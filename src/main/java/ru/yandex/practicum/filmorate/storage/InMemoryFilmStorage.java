@@ -11,7 +11,7 @@ import java.util.*;
 @Slf4j
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
-    HashMap<Long, Film> films = new HashMap<>();
+    HashMap<Integer, Film> films = new HashMap<>();
     // все нормально работает, но непонятно почему компаратор не сортирует по лайкам, зато сортирует по всем оставшимся полям
 //    TreeSet<Film> popularFilms = new TreeSet<>(Comparator.comparing(Film::getLikes).thenComparing(Film::getId).reversed());
 
@@ -31,7 +31,7 @@ public class InMemoryFilmStorage implements FilmStorage {
         return film;
     }
 
-    public Film getFilmById(long id) {
+    public Film getFilmById(int id) {
         if (films.containsKey(id)) {
             return films.get(id);
         }
@@ -60,7 +60,7 @@ public class InMemoryFilmStorage implements FilmStorage {
     }
 
 
-    private long getNextId() {
-        return films.keySet().stream().mapToLong(Long::longValue).max().orElse(0) + 1;
+    private Integer getNextId() {
+        return films.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
     }
 }

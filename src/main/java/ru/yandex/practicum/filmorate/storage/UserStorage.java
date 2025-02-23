@@ -11,6 +11,6 @@ public interface UserStorage {
 
     Collection<User> getUsers();
 
-    User getUserById(long id);
+    User getUserById(int id);
 
 }

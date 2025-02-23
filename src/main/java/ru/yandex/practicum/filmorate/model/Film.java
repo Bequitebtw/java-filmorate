@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 public class Film {
-    private Long id;
+    private Integer id;
     @NotEmpty(message = "Название не может быть пустым")
     @NonNull
     private String name;

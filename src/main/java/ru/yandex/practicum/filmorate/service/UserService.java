@@ -17,7 +17,7 @@ public class UserService {
     private final InMemoryUserStorage inMemoryUserStorage;
 
     //не знаю что возвращать, возвращаю добавляемого друга
-    public User addFriend(long firstUserId, long secondUserId) {
+    public User addFriend(int firstUserId, int secondUserId) {
         if (firstUserId == secondUserId) {
             throw new ValidationException("Нельзя добавить самого себя в друзья");
         }
@@ -26,7 +26,7 @@ public class UserService {
         return inMemoryUserStorage.getUserById(secondUserId);
     }
 
-    public User deleteFriend(long firstUserId, long secondUserId) {
+    public User deleteFriend(int firstUserId, int secondUserId) {
         inMemoryUserStorage.getUserById(firstUserId).getFriends().remove(secondUserId);
         inMemoryUserStorage.getUserById(secondUserId).getFriends().remove(firstUserId);
         return inMemoryUserStorage.getUserById(secondUserId);
@@ -36,7 +36,7 @@ public class UserService {
         return inMemoryUserStorage.getUsers();
     }
 
-    public Collection<User> getUserFriends(long id) {
+    public Collection<User> getUserFriends(int id) {
         return inMemoryUserStorage.getUserById(id)
                 .getFriends()
                 .stream()
@@ -44,10 +44,10 @@ public class UserService {
                 .toList();
     }
 
-    public Collection<User> getMutualFriends(long id, long otherId) {
-        Set<Long> firstUserFriends = inMemoryUserStorage.getUserById(id).getFriends();
-        Set<Long> secondUserFriends = inMemoryUserStorage.getUserById(otherId).getFriends();
-        List<Long> intersectFriends = firstUserFriends.stream().filter(secondUserFriends::contains).toList();
+    public Collection<User> getMutualFriends(int id, int otherId) {
+        Set<Integer> firstUserFriends = inMemoryUserStorage.getUserById(id).getFriends();
+        Set<Integer> secondUserFriends = inMemoryUserStorage.getUserById(otherId).getFriends();
+        List<Integer> intersectFriends = firstUserFriends.stream().filter(secondUserFriends::contains).toList();
         return intersectFriends.stream().map(inMemoryUserStorage::getUserById).toList();
     }
 
