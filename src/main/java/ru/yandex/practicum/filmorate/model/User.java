@@ -6,10 +6,12 @@ import jakarta.validation.constraints.Past;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class User {
-    private Integer id;
+    private Long id;
     private String name;
     @NotBlank(message = "Логин не может быть пустым или содержать пробелы")
     @NonNull
@@ -20,5 +22,6 @@ public class User {
     @Past
     @NonNull
     private LocalDate birthday;
-
+    private final Set<Long> friends = new HashSet<>();
+    private final Set<Long> films = new HashSet<>();
 }

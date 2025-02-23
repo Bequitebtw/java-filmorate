@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Data
 public class Film {
-    private Integer id;
+    private Long id;
     @NotEmpty(message = "Название не может быть пустым")
     @NonNull
     private String name;
@@ -23,4 +23,13 @@ public class Film {
     @Positive(message = "Продолжительность фильма не может быть отрицательной")
     @NonNull
     private Long duration;
+    private Long likes = 0L;
+
+    public void setLike() {
+        this.likes++;
+    }
+
+    public void deleteLike() {
+        this.likes--;
+    }
 }
