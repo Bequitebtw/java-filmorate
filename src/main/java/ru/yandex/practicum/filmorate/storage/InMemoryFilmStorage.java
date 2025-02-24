@@ -12,21 +12,14 @@ import java.util.*;
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
     HashMap<Integer, Film> films = new HashMap<>();
-    // все нормально работает, но непонятно почему компаратор не сортирует по лайкам, зато сортирует по всем оставшимся полям
-//    TreeSet<Film> popularFilms = new TreeSet<>(Comparator.comparing(Film::getLikes).thenComparing(Film::getId).reversed());
 
     public Collection<Film> getFilms() {
         return films.values();
     }
 
-//    public List<Film> getPopularFilms() {
-//        return popularFilms.stream().toList();
-//    }
-
     public Film createFilm(Film film) {
         film.setId(getNextId());
         films.put(getNextId(), film);
-//        popularFilms.add(film);
         log.info("{} добавлен!", film);
         return film;
     }

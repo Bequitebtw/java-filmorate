@@ -30,21 +30,10 @@ public class FilmService {
         return inMemoryFilmStorage.getFilmById(filmId);
     }
 
-    //    public Collection<Film> getPopularTreeFilms(long count) {
-//        Iterator<Film> iterator = inMemoryFilmStorage.getPopularFilms().iterator();
-//        List<Film> list = inMemoryFilmStorage.getPopularFilms();
-//        long counter = 0;
-//        List<Film> popularFilms = new ArrayList<>();
-//        while (iterator.hasNext() && counter < count) {
-//            counter++;
-//            popularFilms.add(iterator.next());
-//        }
-//        return popularFilms;
-//    }
     public List<Film> getPopularFilms(int count) {
         return inMemoryFilmStorage.getFilms().stream()
-                .sorted(Comparator.comparingLong(Film::getLikes).reversed()) // Сортировка по лайкам
-                .limit(count) // Берем только N фильмов
+                .sorted(Comparator.comparingLong(Film::getLikes).reversed())
+                .limit(count)
                 .toList();
     }
 
