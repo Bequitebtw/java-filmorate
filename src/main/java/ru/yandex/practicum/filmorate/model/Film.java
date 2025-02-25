@@ -23,4 +23,13 @@ public class Film {
     @Positive(message = "Продолжительность фильма не может быть отрицательной")
     @NonNull
     private Long duration;
+    private Long likes = 0L;
+
+    public void setLike() {
+        this.likes++;
+    }
+
+    public void deleteLike() {
+        this.likes--;
+    }
 }

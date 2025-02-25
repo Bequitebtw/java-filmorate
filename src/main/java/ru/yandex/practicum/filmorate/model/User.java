@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Past;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class User {
@@ -20,5 +22,6 @@ public class User {
     @Past
     @NonNull
     private LocalDate birthday;
-
+    private final Set<Integer> friends = new HashSet<>();
+    private final Set<Integer> films = new HashSet<>();
 }
