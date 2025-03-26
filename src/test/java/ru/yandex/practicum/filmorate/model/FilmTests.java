@@ -1,9 +1,11 @@
 package ru.yandex.practicum.filmorate.model;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,10 +14,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class FilmTests {
 
     private Film film;
+    private ArrayList<String> genres = new ArrayList<>();
+
+    @BeforeAll
+    public static void setGenres() {
+
+    }
 
     @BeforeEach
     public void createNewFilm() {
-        film = new Film("name", "desk", LocalDate.of(1900, 12, 12), 200L);
+        genres.add("Horror");
+        genres.add("Comedy");
+        film = new Film("name", "desk", LocalDate.of(1900, 12, 12), 200L, genres);
     }
 
     @Test

@@ -22,6 +22,8 @@ public class User {
     @Past
     @NonNull
     private LocalDate birthday;
+    private Set<Integer> sentRequests;
+    private Set<Integer> gotRequests;
     private final Set<Integer> friends = new HashSet<>();
     private final Set<Integer> films = new HashSet<>();
 }

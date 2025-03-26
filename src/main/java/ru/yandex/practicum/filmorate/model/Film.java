@@ -7,6 +7,7 @@ import lombok.*;
 import ru.yandex.practicum.filmorate.annotation.FutureAfter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Data
 public class Film {
@@ -24,6 +25,9 @@ public class Film {
     @NonNull
     private Long duration;
     private Long likes = 0L;
+    @NonNull
+    private ArrayList<String> genres;
+    private Mpa restriction;
 
     public void setLike() {
         this.likes++;
