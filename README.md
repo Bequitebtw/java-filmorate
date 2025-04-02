@@ -24,29 +24,26 @@ WHERE uf.friend_id = ? AND fr.status = "friends"
 ```sql
 SELECT f.id, 
 f.name, 
-f.description,
-f.duration,
-f.release_date,
-r.restriction_type,
+f.description, 
+f.duration, 
+f.release_date, 
+f.restriction_id, 
+r.restriction_type, 
+g.id AS genre_id, 
+g.name AS genre_name, 
 COUNT(DISTINCT uf.user_id) AS likes 
 FROM films AS f 
-JOIN user_films AS uf ON f.id = uf.film_id 
-JOIN restriction r ON f.restriction_id = r.id 
+LEFT JOIN film_genres fg ON f.id = fg.film_id 
+LEFT JOIN genre g ON fg.genre_id = g.id 
+LEFT JOIN user_films AS uf ON f.id = uf.film_id 
+LEFT JOIN restriction r ON f.restriction_id = r.id 
 WHERE f.id = ? 
-GROUP BY f.id
+GROUP BY f.id, f.name, f.description, f.duration, f.release_date, 
+f.restriction_id, r.restriction_type, g.id, g.name 
+ORDER BY f.id 
+LIMIT 1;
 ```
-Популярные фильмы
+Поставить фильму лайк
 ```sql
-SELECT f.id,
-f.name,
-f.DESCRIPTION, 
-f.DURATION, 
-f.RELEASE_DATE, r.RESTRICTION_TYPE, 
-COUNT(DISTINCT uf.user_id) AS LIKES 
-FROM films AS f 
-JOIN user_films AS uf ON f.id = uf.film_id 
-JOIN restriction r ON f.RESTRICTION_ID = r.ID 
-GROUP BY f.id 
-ORDER BY likes DESC 
-LIMIT ?
+INSERT INTO user_films (user_id,film_id) VALUES (?,?)
 ```
