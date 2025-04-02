@@ -9,9 +9,11 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Data
 public class User {
-    private Integer id;
+    private Long id;
     private String name;
     @NotBlank(message = "Логин не может быть пустым или содержать пробелы")
     @NonNull
@@ -22,8 +24,6 @@ public class User {
     @Past
     @NonNull
     private LocalDate birthday;
-    private Set<Integer> sentRequests;
-    private Set<Integer> gotRequests;
     private final Set<Integer> friends = new HashSet<>();
     private final Set<Integer> films = new HashSet<>();
 }

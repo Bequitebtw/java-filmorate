@@ -5,10 +5,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.yandex.practicum.filmorate.exception.ErrorResponse;
-import ru.yandex.practicum.filmorate.exception.NotFoundFilmException;
-import ru.yandex.practicum.filmorate.exception.NotFoundUserException;
-import ru.yandex.practicum.filmorate.exception.ValidationException;
+import ru.yandex.practicum.filmorate.exception.*;
 
 @RestControllerAdvice
 public class ExceptionController {
@@ -25,10 +22,27 @@ public class ExceptionController {
         return new ErrorResponse(e.getMessage());
     }
 
-    //Ошибка создания объекта спрингом
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse methodArgumentNotValidHandler(MethodArgumentNotValidException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler
+    public ErrorResponse badRequestHandler(BadRequestException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    public ErrorResponse notFoundMpaHandler(NotFoundMpaException e) {
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler
+    public ErrorResponse notFoundGenreException(NotFoundGenreException e) {
         return new ErrorResponse(e.getMessage());
     }
 
@@ -43,5 +57,6 @@ public class ExceptionController {
     public ErrorResponse throwableHandler(Throwable e) {
         return new ErrorResponse(e.getMessage());
     }
+
 
 }

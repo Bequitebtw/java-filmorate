@@ -3,13 +3,14 @@ package ru.yandex.practicum.filmorate.storage;
 import ru.yandex.practicum.filmorate.model.Film;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface FilmStorage {
-    Film createFilm(Film film);
+    Optional<Film> createFilm(Film film);
 
-    Film updateFilm(Film film);
+    Optional<Film> updateFilm(Film film);
 
-    Collection<Film> getFilms();
+    Collection<Film> findAll();
 
-    Film getFilmById(int id);
+    Optional<Film> findFilmById(long id);
 }
