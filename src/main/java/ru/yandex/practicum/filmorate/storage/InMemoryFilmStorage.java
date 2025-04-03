@@ -11,27 +11,27 @@ import java.util.*;
 @Slf4j
 @Component
 public class InMemoryFilmStorage implements FilmStorage {
-    HashMap<Integer, Film> films = new HashMap<>();
+    HashMap<Long, Film> films = new HashMap<>();
 
-    public Collection<Film> getFilms() {
+    public Collection<Film> findAll() {
         return films.values();
     }
 
-    public Film createFilm(Film film) {
+    public Optional<Film> createFilm(Film film) {
         film.setId(getNextId());
         films.put(getNextId(), film);
         log.info("{} добавлен!", film);
-        return film;
+        return Optional.of(film);
     }
 
-    public Film getFilmById(int id) {
+    public Optional<Film> findFilmById(long id) {
         if (films.containsKey(id)) {
-            return films.get(id);
+            return Optional.of(films.get(id));
         }
         throw new NotFoundFilmException(id);
     }
 
-    public Film updateFilm(Film film) {
+    public Optional<Film> updateFilm(Film film) {
         if (film.getId() == null) {
             log.warn("Название фильме не может быть пустым");
             throw new ValidationException("Название фильме не может быть пустым");
@@ -49,11 +49,11 @@ public class InMemoryFilmStorage implements FilmStorage {
         // по логике нужно удалять фильм у всех пользователей и ставить 0 лайков, так как это уже не тот фильм что был
         oldFilm.setLikes(film.getLikes());
         log.info("{} обновлен!", film);
-        return oldFilm;
+        return Optional.of(oldFilm);
     }
 
 
-    private Integer getNextId() {
-        return films.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
+    private Long getNextId() {
+        return films.keySet().stream().mapToLong(Long::intValue).max().orElse(0) + 1;
     }
 }

@@ -25,7 +25,7 @@ public class FilmTests {
     public void createNewFilm() {
         genres.add("Horror");
         genres.add("Comedy");
-        film = new Film("name", "desk", LocalDate.of(1900, 12, 12), 200L, genres);
+        film = new Film("name", "desk", LocalDate.of(1900, 12, 12), 200L);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class FilmTests {
         film.setName("Name1");
         film.setDescription("Desk1");
         film.setReleaseDate(LocalDate.of(2004, 5, 10));
-        film.setId(1);
+        film.setId(1L);
         film.setDuration(100L);
         assertEquals(film.getName(), "Name1");
         assertEquals(film.getDescription(), "Desk1");

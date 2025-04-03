@@ -30,7 +30,7 @@ public class UserTests {
         user.setName("Name1");
         user.setEmail("Email1");
         user.setBirthday(LocalDate.of(1990, 5, 10));
-        user.setId(1);
+        user.setId(1L);
         user.setLogin("Login1");
         assertEquals(user.getName(), "Name1");
         assertEquals(user.getEmail(), "Email1");

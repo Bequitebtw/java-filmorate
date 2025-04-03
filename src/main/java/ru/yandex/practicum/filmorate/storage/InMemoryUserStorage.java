@@ -11,21 +11,17 @@ import java.util.*;
 @Slf4j
 @Component
 public class InMemoryUserStorage implements UserStorage {
-    HashMap<Integer, User> users = new HashMap<>();
+    HashMap<Long, User> users = new HashMap<>();
 
     public Collection<User> getUsers() {
         return users.values();
     }
 
-    public User createUser(User user) {
-        nameValidation(user);
-        user.setId(getNextId());
-        users.put(getNextId(), user);
-        log.info("{} добавлен!", user);
-        return user;
+    public Optional<User> createUser(User user) {
+        return null;
     }
 
-    public User updateUser(User user) {
+    public Optional<User> updateUser(User user) {
         if (user.getId() == null) {
             log.warn("Id должен быть указан");
             throw new ValidationException("Id должен быть указан");
@@ -41,18 +37,18 @@ public class InMemoryUserStorage implements UserStorage {
         oldUser.setBirthday(user.getBirthday());
         oldUser.setEmail(user.getEmail());
         log.info("{} обновил данные!", oldUser);
-        return oldUser;
+        return Optional.of(oldUser);
     }
 
-    public User getUserById(int id) {
+    public Optional<User> getUserById(long id) {
         if (users.containsKey(id)) {
-            return users.get(id);
+            return Optional.of(users.get(id));
         }
         throw new NotFoundUserException(id);
     }
 
     private Integer getNextId() {
-        return users.keySet().stream().mapToInt(Integer::intValue).max().orElse(0) + 1;
+        return users.keySet().stream().mapToInt(Long::intValue).max().orElse(0) + 1;
     }
 
     private void nameValidation(User user) {
